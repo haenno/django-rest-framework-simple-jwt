@@ -15,8 +15,8 @@ Espacially for usage with my frontend project: <https://github.com/haenno/VBJ>
 ```bash
 git clone *this repo*
 conda create --name drfjwt python=3.10 # or use your existing environment
+conda activate drfjwt
 pip install -r requirements.txt
-python manage.py makemigrations
 python manage.py migrate
 python manage.py createsuperuser
 python manage.py runserver
