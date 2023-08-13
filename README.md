@@ -3,6 +3,13 @@ Absolute bare minimum with Django REST framework and Simple JWT and all settings
 
 Espacially for usage with my frontend project: <https://github.com/haenno/VBJ>
 
+## API endpoints for JWT authentication
+
+- Obtain a token pair for a user: POST to ``/api/token/`` with ``username, password``
+- Verify a token: POST to ``/api/token/verify/`` with ``token``  *(works on both access and refresh tokens)*
+- Refresh a token: POST to ``/api/token/refresh/`` with ``refresh`` *(refresh token only, returns fresh access and refresh tokens)*
+- Blacklist a token: POST to ``/api/token/blacklist/`` with ``refresh`` *(blacklists any kind of token, refresh or access)*
+
 ## Usage
 
 ```bash
