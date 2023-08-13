@@ -25,7 +25,7 @@ Then open <http://127.0.0.1:8000/> in your browser and login with the superuser 
 ```bash
 conda create --name drfjwt python=3.10
 conda activate drfjwt
-pip install Django djangorestframework djangorestframework-simplejwt
+pip install Django djangorestframework djangorestframework-simplejwt django-cors-headers
 pip freeze > requirements.txt
 django-admin startproject drfjwt
 cd drfjwt
@@ -41,6 +41,19 @@ Add to ``settings.py`` in ``INSTALLED_APPS``:
     'rest_framework',
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',    
+    'corsheaders',
+```
+
+Add to ``settings.py`` in ``MIDDLEWARE``:
+
+```python
+    'corsheaders.middleware.CorsMiddleware',
+```
+
+Then add also to ``settings.py`` at the start:
+
+```python
+from datetime import timedelta
 ```
 
 Then add also to ``settings.py`` at the end:
@@ -63,26 +76,32 @@ SIMPLE_JWT = {
     "ROTATE_REFRESH_TOKENS": True,
     "BLACKLIST_AFTER_ROTATION": True,
     "UPDATE_LAST_LOGIN": False,
+
     "ALGORITHM": "HS256",
-    "SIGNING_KEY": env("ENV_JWT_TOKEN_SECRET_KEY"),
+    "SIGNING_KEY": SECRET_KEY,
     "VERIFYING_KEY": "",
     "AUDIENCE": None,
     "ISSUER": None,
     "JSON_ENCODER": None,
     "JWK_URL": None,
     "LEEWAY": 0,
+
     "AUTH_HEADER_TYPES": ("Bearer",),
     "AUTH_HEADER_NAME": "HTTP_AUTHORIZATION",
     "USER_ID_FIELD": "id",
     "USER_ID_CLAIM": "user_id",
     "USER_AUTHENTICATION_RULE": "rest_framework_simplejwt.authentication.default_user_authentication_rule",
+
     "AUTH_TOKEN_CLASSES": ("rest_framework_simplejwt.tokens.AccessToken",),
     "TOKEN_TYPE_CLAIM": "token_type",
     "TOKEN_USER_CLASS": "rest_framework_simplejwt.models.TokenUser",
+
     "JTI_CLAIM": "jti",
+
     "SLIDING_TOKEN_REFRESH_EXP_CLAIM": "refresh_exp",
     "SLIDING_TOKEN_LIFETIME": timedelta(minutes=5),
     "SLIDING_TOKEN_REFRESH_LIFETIME": timedelta(days=1),
+
     "TOKEN_OBTAIN_SERIALIZER": "rest_framework_simplejwt.serializers.TokenObtainPairSerializer",
     "TOKEN_REFRESH_SERIALIZER": "rest_framework_simplejwt.serializers.TokenRefreshSerializer",
     "TOKEN_VERIFY_SERIALIZER": "rest_framework_simplejwt.serializers.TokenVerifySerializer",
@@ -91,6 +110,7 @@ SIMPLE_JWT = {
     "SLIDING_TOKEN_REFRESH_SERIALIZER": "rest_framework_simplejwt.serializers.TokenRefreshSlidingSerializer",
 }
 
+CORS_ORIGIN_ALLOW_ALL = True
 
 ```
 
