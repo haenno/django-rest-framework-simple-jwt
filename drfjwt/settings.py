@@ -14,20 +14,36 @@ import os  # for staticfiles
 from datetime import timedelta
 from pathlib import Path
 
+import environ
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+# Take environment variables from .env file
+ENV_FILE = os.path.join(BASE_DIR.parent, ".env")
+environ.Env.read_env(ENV_FILE)
+
+env = environ.Env(
+    ENV_DRFJWT_SECRET_KEY=(
+        str,
+        "django-insecure-hybs=%*%37iv!3is_7*0ub1$a0vb+o%pmhvu^=r+w7)88^^!vh",
+    ),
+    ENV_DRFJWT_ALLOWED_HOSTS=(list, ["localhost", "0.0.0.0", "127.0.0.1"]),
+    ENV_DRFJWT_DEBUG=(bool, True),
+    ENV_DRFJWT_CSRF_TRUSTED_ORIGINS=(list, ["http://localhost", "http://127.0.0.1"]),
+)
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-fy4_c6vxh$@fqis$-+bj98o%klvt1nah9*#xg*wk+bg9__)m7m"
+SECRET_KEY = env("ENV_DRFJWT_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env("ENV_DRFJWT_DEBUG")
 
-ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
+ALLOWED_HOSTS = env("ENV_DRFJWT_ALLOWED_HOSTS")
 
 
 # Application definition
@@ -200,6 +216,4 @@ CORS_ALLOW_CREDENTIALS = True
 
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")  # for staticfiles
 
-CSRF_TRUSTED_ORIGINS = [
-    "http://127.0.0.1",
-]
+CSRF_TRUSTED_ORIGINS = env("ENV_DRFJWT_CSRF_TRUSTED_ORIGINS")
