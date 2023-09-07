@@ -22,3 +22,4 @@ services:
     container_name: drfjwt
     volumes:
       - ./:/usr/src/drfjwt
+      - ./dbdata:/srv/drfjwt/dbdata

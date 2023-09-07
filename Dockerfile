@@ -1,5 +1,7 @@
 # same base container as the frontend to save traffic and space 
 FROM python:3.11.5-slim-bookworm
+RUN apt-get update && apt-get -y upgrade
+RUN pip install --upgrade pip
 WORKDIR /srv/drfjwt
 COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
