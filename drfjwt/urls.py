@@ -16,6 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.contrib.auth.models import User
+from django.db import models
 from django.urls import include, path
 from rest_framework import routers, serializers, viewsets
 from rest_framework_simplejwt.views import (
@@ -24,6 +25,7 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
     TokenVerifyView,
 )
+from tasks.models import Task
 
 
 # Serializers define the API representation.
@@ -53,6 +55,32 @@ class UserViewSet(viewsets.ModelViewSet):
 router = routers.DefaultRouter()
 router.register(r"users", UserViewSet)
 
+
+# TASKS
+
+
+# Serializers define the API representation.
+class TaskSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Task
+        fields = [
+            "id",
+            "title",
+            "isFav",
+        ]
+
+
+# ViewSets define the view behavior.
+class TaskViewSet(viewsets.ModelViewSet):
+    queryset = Task.objects.all()
+    serializer_class = TaskSerializer
+
+
+# Routers provide an easy way of automatically determining the URL conf.
+taskRouter = routers.DefaultRouter()
+taskRouter.register(r"task", TaskViewSet)
+
+
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api-users/", include(router.urls)),
@@ -61,4 +89,5 @@ urlpatterns = [
     path("api/token/verify/", TokenVerifyView.as_view(), name="token_verify"),
     path("api/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
     path("api/token/blacklist/", TokenBlacklistView.as_view(), name="token_blacklist"),
+    path("tasks_test_api/", include(taskRouter.urls)),
 ]

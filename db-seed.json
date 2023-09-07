@@ -1,0 +1,22 @@
+[
+  {
+    "model": "tasks.task",
+    "pk": 1,
+    "fields": { "title": "Test-Task Nummer #1", "isFav": false }
+  },
+  {
+    "model": "tasks.task",
+    "pk": 2,
+    "fields": { "title": "Test-Task Nummer #2", "isFav": true }
+  },
+  {
+    "model": "tasks.task",
+    "pk": 3,
+    "fields": { "title": "Test-Task Nummer #3", "isFav": false }
+  },
+  {
+    "model": "tasks.task",
+    "pk": 4,
+    "fields": { "title": "Test-Task Nummer #4", "isFav": true }
+  }
+]

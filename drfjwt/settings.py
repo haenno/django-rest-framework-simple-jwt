@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+import os  # for staticfiles
 from datetime import timedelta
 from pathlib import Path
 
@@ -26,7 +27,7 @@ SECRET_KEY = "django-insecure-fy4_c6vxh$@fqis$-+bj98o%klvt1nah9*#xg*wk+bg9__)m7m
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
 
 
 # Application definition
@@ -41,6 +42,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "rest_framework_simplejwt",
     "rest_framework_simplejwt.token_blacklist",
+    "tasks",
 ]
 
 MIDDLEWARE = [
@@ -49,6 +51,7 @@ MIDDLEWARE = [
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",  # for static files in
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
@@ -140,8 +143,8 @@ REST_FRAMEWORK = {
 
 
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=5),
-    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=1),
+    "REFRESH_TOKEN_LIFETIME": timedelta(minutes=10),
     "ROTATE_REFRESH_TOKENS": True,
     "BLACKLIST_AFTER_ROTATION": True,
     "UPDATE_LAST_LOGIN": False,
@@ -192,5 +195,11 @@ CORS_ALLOW_METHODS = (
     "PUT",
 )
 
-CORS_ALLOW_PRIVATE_NETWORK=True
-CORS_ALLOW_CREDENTIALS=True
+CORS_ALLOW_PRIVATE_NETWORK = True
+CORS_ALLOW_CREDENTIALS = True
+
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")  # for staticfiles
+
+CSRF_TRUSTED_ORIGINS = [
+    "http://127.0.0.1",
+]
