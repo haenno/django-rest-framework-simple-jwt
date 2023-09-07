@@ -1,0 +1,24 @@
+version: "3.7"
+services:
+
+  drfjwt:
+
+    build:
+      context: ./
+      dockerfile: Dockerfile
+      args:
+        DJANGO_SUPERUSER_PASSWORD: ${ENV_DJANGO_SUPERUSER_PASSWORD}
+        DJANGO_SUPERUSER_USERNAME: ${ENV_DJANGO_SUPERUSER_USERNAME}
+        DJANGO_SUPERUSER_EMAIL: ${ENV_DJANGO_SUPERUSER_EMAIL}
+    env_file:
+      - .env
+    command: bash -c '/srv/drfjwt/start_drfjwt.sh'
+    environment:
+      DJANGO_SUPERUSER_PASSWORD: ${ENV_DJANGO_SUPERUSER_PASSWORD}
+      DJANGO_SUPERUSER_USERNAME: ${ENV_DJANGO_SUPERUSER_USERNAME}
+      DJANGO_SUPERUSER_EMAIL: ${ENV_DJANGO_SUPERUSER_EMAIL}
+    ports:
+      - "8765:8765"
+    container_name: drfjwt
+    volumes:
+      - ./:/usr/src/drfjwt
