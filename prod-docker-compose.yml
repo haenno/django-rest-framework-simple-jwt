@@ -1,4 +1,4 @@
-version: "3.8"
+version: "3.7"
 
 x-logging: &loki-logging
   driver: json-file
