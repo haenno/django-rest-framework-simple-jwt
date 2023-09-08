@@ -1,0 +1,50 @@
+version: "3.8"
+
+x-logging: &loki-logging
+  driver: json-file
+  options:
+    tag: "{{.ImageName}}|{{.Name}}|{{.ImageFullID}}|{{.FullID}}"
+
+services:
+
+  drfjwt:
+    user: "0:0"
+    hostname: drfjwt
+    container_name: drfjwt
+
+    build:
+      context: ./
+      dockerfile: Dockerfile
+      args:
+        DJANGO_SUPERUSER_PASSWORD: ${ENV_DRFJWT_DJANGO_SUPERUSER_PASSWORD}
+        DJANGO_SUPERUSER_USERNAME: ${ENV_DRFJWT_DJANGO_SUPERUSER_USERNAME}
+        DJANGO_SUPERUSER_EMAIL: ${ENV_DRFJWT_DJANGO_SUPERUSER_EMAIL}
+    env_file:
+      - .env
+    command: bash -c '/srv/drfjwt/start_drfjwt.sh'
+    environment:
+      DJANGO_SUPERUSER_PASSWORD: ${ENV_DRFJWT_DJANGO_SUPERUSER_PASSWORD}
+      DJANGO_SUPERUSER_USERNAME: ${ENV_DRFJWT_DJANGO_SUPERUSER_USERNAME}
+      DJANGO_SUPERUSER_EMAIL: ${ENV_DRFJWT_DJANGO_SUPERUSER_EMAIL}
+    ports:
+      - "8765:8765"
+    volumes:
+      - ./:/usr/src/drfjwt
+      - ./dbdata:/srv/drfjwt/dbdata
+    labels:
+      - traefik.http.routers.drfjwt.rule=Host(`drfjwt.${ENV_DRFJWT_DOCKER_DOMAIN}`)
+      - traefik.http.routers.drfjwt.service=drfjwt
+      # - traefik.http.routers.drfjwt.middlewares=auth
+      - traefik.http.services.drfjwt.loadbalancer.server.port=8765
+      - traefik.http.routers.drfjwt.entrypoints=https
+      - traefik.http.routers.drfjwt.tls=true
+      - traefik.http.routers.drfjwt.tls.certresolver=${ENV_DRFJWT_DOCKER_CERT_RESOLVER}
+    networks:
+      - internalnetwork
+    restart: always
+    logging: *loki-logging
+
+networks:
+  internalnetwork:
+    name: internalnetwork
+    external: true
