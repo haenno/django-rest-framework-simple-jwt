@@ -7,12 +7,12 @@ from newsapi.models import News
 from newsapi.views import LatestNewsListAPIView, NewsAfterIdListAPIView
 
 # create 30 news on each startup
-for _ in range(30):
-    new_news = News()
-    new_news.news_uuid = uuid.uuid4()
-    new_news.assigned_to_uuid = uuid.uuid4()
-    new_news.news_text = Faker().text(max_nb_chars=300)
-    new_news.save()
+# for _ in range(30):
+#    new_news = News()
+#    new_news.news_uuid = uuid.uuid4()
+#    new_news.assigned_to_uuid = uuid.uuid4()
+#    new_news.news_text = Faker().text(max_nb_chars=300)
+#    new_news.save()
 
 
 app_name = "newsapi"

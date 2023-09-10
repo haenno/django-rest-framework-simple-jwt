@@ -21,12 +21,12 @@ class NewsAfterIdListAPIView(ListAPIView):
 
     def get_queryset(self):
         # create more news on each call
-        for _ in range(2):
-            new_news = News()
-            new_news.news_uuid = uuid.uuid4()
-            new_news.assigned_to_uuid = uuid.uuid4()
-            new_news.news_text = Faker().text(max_nb_chars=300)
-            new_news.save()
+        # for _ in range(2):
+        #     new_news = News()
+        #     new_news.news_uuid = uuid.uuid4()
+        #     new_news.assigned_to_uuid = uuid.uuid4()
+        #     new_news.news_text = Faker().text(max_nb_chars=300)
+        #     new_news.save()
 
         news_id = self.kwargs.get(self.lookup_url_kwarg)
         news_after_id = News.objects.filter(pk__gt=news_id).order_by("-created")
