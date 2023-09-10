@@ -4,7 +4,11 @@ from django.urls import path
 from faker import Faker
 
 from newsapi.models import News
-from newsapi.views import LatestNewsListAPIView, NewsAfterIdListAPIView
+from newsapi.views import (
+    CreateNewsAPIView,
+    LatestNewsListAPIView,
+    NewsAfterIdListAPIView,
+)
 
 # create 30 news on each startup
 # for _ in range(30):
@@ -18,6 +22,7 @@ from newsapi.views import LatestNewsListAPIView, NewsAfterIdListAPIView
 app_name = "newsapi"
 
 urlpatterns = [
+    path("create_news/", CreateNewsAPIView.as_view(), name="create_news"),
     path("latest_news/", LatestNewsListAPIView.as_view(), name="latest_news"),
     path(
         "news_after_id/<int:news_id>/",

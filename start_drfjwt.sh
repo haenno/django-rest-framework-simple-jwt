@@ -2,7 +2,7 @@
 
 echo 'drfjwt startup...'
 python3 manage.py migrate --run-syncdb
-python3 manage.py migrate --fake myapp
+python3 manage.py migrate --fake newsapi
 python3 manage.py migrate --fake tasks
 python3 manage.py makemigrations
 python3 manage.py makemigrations newsapi
