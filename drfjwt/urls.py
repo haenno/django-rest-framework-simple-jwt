@@ -91,5 +91,5 @@ urlpatterns = [
     path("api/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
     path("api/token/blacklist/", TokenBlacklistView.as_view(), name="token_blacklist"),
     path("tasks_test_api/", include(taskRouter.urls)),
-    path("news_api/", include("news.urls")),
+    path("news_api/", include("newsapi.urls")),
 ]

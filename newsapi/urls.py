@@ -3,7 +3,7 @@ import uuid
 from django.urls import path
 from faker import Faker
 
-from news.views import LatestNewsListAPIView, NewsAfterIdListAPIView
+from newsapi.views import LatestNewsListAPIView, NewsAfterIdListAPIView
 
 from .models import News
 
@@ -16,7 +16,7 @@ for _ in range(30):
     new_news.save()
 
 
-app_name = "news"
+app_name = "newsapi"
 
 urlpatterns = [
     path("latest_news/", LatestNewsListAPIView.as_view(), name="latest_news"),

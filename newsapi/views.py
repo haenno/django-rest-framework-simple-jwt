@@ -4,8 +4,8 @@ import uuid
 from faker import Faker
 from rest_framework.generics import ListAPIView
 
-from news.models import News
-from news.serializers import NewsSerializer
+from newsapi.models import News
+from newsapi.serializers import NewsSerializer
 
 
 class LatestNewsListAPIView(ListAPIView):
