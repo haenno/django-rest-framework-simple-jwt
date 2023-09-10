@@ -3,9 +3,8 @@ import uuid
 from django.urls import path
 from faker import Faker
 
+from newsapi.models import News
 from newsapi.views import LatestNewsListAPIView, NewsAfterIdListAPIView
-
-from .models import News
 
 # create 30 news on each startup
 for _ in range(30):

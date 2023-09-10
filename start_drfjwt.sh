@@ -4,18 +4,18 @@ echo 'drfjwt startup...'
 python3 manage.py migrate --fake myapp
 python3 manage.py makemigrations
 python3 manage.py migrate --fake myapp
-python3 manage.py makemigrations news
+python3 manage.py makemigrations newsapi
 python3 manage.py makemigrations tasks
 python3 manage.py migrate --fake myapp
 python3 manage.py makemigrations
 python3 manage.py migrate
-python3 manage.py migrate news
+python3 manage.py migrate newsapi
 python3 manage.py migrate
 python3 manage.py migrate --fake myapp
 python3 manage.py migrate --run-syncdb
-python3 manage.py schemamigration news --auto
-python3 manage.py schemamigration news --init
-python3 manage.py migrate news
+python3 manage.py schemamigration newsapi --auto
+python3 manage.py schemamigration newsapi --init
+python3 manage.py migrate newsapi
 python3 manage.py migrate --run-syncdb    # Apply database migrations
 python3 manage.py collectstatic --noinput # Collect static files
 python3 manage.py loaddata db-seed.json
