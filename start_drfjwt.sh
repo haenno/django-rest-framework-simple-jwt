@@ -1,17 +1,17 @@
 #!/bin/bash
 
 echo 'drfjwt startup...'
-pyrhon3 manage.py migrate --fake myapp
+python3 manage.py migrate --fake myapp
 python3 manage.py makemigrations
-pyrhon3 manage.py migrate --fake myapp
+python3 manage.py migrate --fake myapp
 python3 manage.py makemigrations news
 python3 manage.py makemigrations tasks
-pyrhon3 manage.py migrate --fake myapp
+python3 manage.py migrate --fake myapp
 python3 manage.py makemigrations
 python3 manage.py migrate
 python3 manage.py migrate news
 python3 manage.py migrate
-pyrhon3 manage.py migrate --fake myapp
+python3 manage.py migrate --fake myapp
 python3 manage.py migrate --run-syncdb
 python3 manage.py schemamigration news --auto
 python3 manage.py schemamigration news --init
