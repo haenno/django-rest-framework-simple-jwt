@@ -1,12 +1,7 @@
 #!/bin/bash
 
 echo 'drfjwt startup...'
-python3 manage.py migrate --run-syncdb
-python3 manage.py migrate --fake newsapi
-python3 manage.py migrate --fake tasks
 python3 manage.py makemigrations
-python3 manage.py makemigrations newsapi
-python3 manage.py makemigrations tasks
 python3 manage.py migrate
 python3 manage.py migrate --run-syncdb    # Apply database migrations
 python3 manage.py collectstatic --noinput # Collect static files

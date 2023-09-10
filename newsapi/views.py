@@ -14,11 +14,12 @@ class CreateNewsAPIView(CreateAPIView):
 
     def get_queryset(self):
         new_news = News()
-        new_news.news_uuid = uuid.uuid4()
-        new_news.assigned_to_uuid = uuid.uuid4()
-        new_news.news_text = Faker().text(max_nb_chars=300)
-        new_news.save()
-        return new_news
+        # new_news.news_uuid = uuid.uuid4()
+        # new_news.assigned_to_uuid = uuid.uuid4()
+        # new_news.news_text = Faker().text(max_nb_chars=300)
+        # new_news.save()
+        queryset = News.objects.filter(pk=new_news.pk)
+        return queryset
 
 
 class LatestNewsListAPIView(ListAPIView):
