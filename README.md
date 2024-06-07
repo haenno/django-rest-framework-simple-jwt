@@ -8,7 +8,7 @@ My test installation is running at: <https://drfjwt.haenno.de>
 
 ## API endpoints for JWT authentication
 
-- Obtain a token pair for a user: POST to ``/api/token/`` with ``username, password``
+- Obtain a token pair for a user: POST to ``/api/token/obtain/`` with ``username, password``
 - Verify a token: POST to ``/api/token/verify/`` with ``token``  *(works on both access and refresh tokens)*
 - Refresh a token: POST to ``/api/token/refresh/`` with ``refresh`` *(refresh token only, returns fresh access and refresh tokens)*
 - Blacklist a token: POST to ``/api/token/blacklist/`` with ``refresh`` *(blacklists any kind of token, refresh or access)*
