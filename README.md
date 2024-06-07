@@ -32,6 +32,8 @@ Then prepare the project:
 git clone *this repo*
 pip install -r requirements.txt
 python manage.py makemigrations
+python manage.py makemigrations newsapi
+python manage.py makemigrations tasks
 python manage.py migrate
 python manage.py loaddata db-seed.json
 python manage.py createsuperuser
